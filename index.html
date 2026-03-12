@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Process Automation Plan — General Assembly BAA 11.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=Barlow+Condensed:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --black:#0d0d0d;--black2:#1a1a1a;--black3:#252525;--black4:#333;
+  --line:#2e2e2e;--line2:#404040;--gray-dk:#555;--gray:#888;
+  --gray-lt:#bbb;--white:#fff;
+  --GA-red:#e8333a;--GA-red2:#ff4a50;
+  --yellow:#f5c518;--green:#22c55e;--blue:#3b82f6;--purple:#a855f7;
+  --teal:#14b8a6;--orange:#f97316;
+  --r:4px;--r-lg:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--white);font-size:16px;line-height:1.6;min-height:100vh}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--black2)}::-webkit-scrollbar-thumb{background:var(--black4);border-radius:3px}
+/* HEADER */
+header{position:sticky;top:0;z-index:500;background:var(--black);border-bottom:2px solid var(--GA-red);display:flex;align-items:stretch;height:58px}
+.ga-logo{display:flex;align-items:center;gap:10px;padding:0 20px;border-right:1px solid var(--line);flex-shrink:0;cursor:pointer}
+.ga-mark{width:32px;height:32px;background:var(--GA-red);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;color:#fff;border-radius:2px}
+.ga-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--gray-lt);text-transform:uppercase;line-height:1.2}
+.ga-name span{display:block;font-size:10px;color:var(--gray);font-weight:600}
+.tab-bar{display:flex;align-items:stretch;overflow-x:auto;flex:1;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;padding:0 13px;font-family:'Barlow',sans-serif;font-size:12px;font-weight:600;color:var(--gray);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:color .15s,border-color .15s;position:relative;top:2px}
+.tab:hover{color:#fff}.tab.active{color:#fff;border-bottom-color:var(--GA-red)}
+.hd-end{display:flex;align-items:center;padding:0 18px;border-left:1px solid var(--line);flex-shrink:0}
+.prog-chip{background:var(--GA-red);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 12px;border-radius:20px;white-space:nowrap}
+/* SECTIONS */
+.section{display:none}.section.active{display:block}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px 80px}
+/* TYPE */
+.eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--GA-red);margin-bottom:10px;display:block}
+h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.4rem,6vw,3.8rem);font-weight:900;line-height:1.05;color:#fff;margin-bottom:16px}
+h1 .red{color:var(--GA-red)}
+h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;line-height:1.1;color:#fff;margin-bottom:8px}
+h2 .red{color:var(--GA-red)}
+.lead{font-size:1.02rem;color:var(--gray-lt);line-height:1.72;margin-bottom:28px;max-width:660px}
+.hr{height:1px;background:var(--line);margin:36px 0}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:var(--r);font-family:'Barlow',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all .15s;white-space:nowrap}
+.btn-red{background:var(--GA-red);color:#fff;border-color:var(--GA-red)}.btn-red:hover{background:var(--GA-red2);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--gray-lt);border:2px solid var(--line2);padding:10px 20px;font-size:.88rem;font-weight:600;cursor:pointer;border-radius:var(--r);transition:all .15s}.btn-ghost:hover{border-color:var(--gray);color:#fff}
+.btn-green{background:var(--green);color:var(--black);border:none;border-radius:var(--r);padding:11px 24px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s}.btn-green:hover{background:#16a34a;transform:translateY(-1px)}
+/* CARD */
+.card{background:var(--black2);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;margin-bottom:16px}
+.card-rb{border-top:3px solid var(--GA-red)}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+/* CALLOUTS */
+.callout{border-radius:var(--r-lg);padding:14px 18px;margin:12px 0;font-size:.88rem;line-height:1.65}
+.callout-tip{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:#93c5fd}
+.callout-warn{background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);color:#fde68a}
+.callout-danger{background:rgba(232,51,58,.1);border:1px solid rgba(232,51,58,.3);color:#fca5a5}
+.callout-success{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#86efac}
+.callout-purple{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);color:#d8b4fe}
+.callout strong{color:#fff}
+/* ANIM */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.a1{animation:fadeUp .35s ease both}.a2{animation:fadeUp .35s .1s ease both}.a3{animation:fadeUp .35s .2s ease both}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;background:var(--black3);border:1px solid var(--line);border-radius:var(--r);padding:6px 14px;margin-bottom:20px;font-size:12px;font-weight:600;color:var(--gray-lt);letter-spacing:.04em}
+.hero-kicker .dot{width:8px;height:8px;background:var(--GA-red);border-radius:50%}
+/* ROADMAP */
+.roadmap{display:flex;flex-direction:column}
+.rm-item{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.rm-item:last-child{border-bottom:none}
+.rm-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;border:2px solid var(--line);background:var(--black3);color:var(--gray);transition:all .25s}
+.rm-dot.done{background:var(--green);border-color:var(--green);color:var(--black)}
+.rm-label{font-size:.95rem;font-weight:600;color:var(--gray);padding-top:6px}
+.rm-label.done{color:var(--green)}
+.rm-sub{font-size:.8rem;color:var(--gray-dk);margin-top:2px}
+
+/* ── TRIGGER BUILDER ── */
+.trig-card{background:var(--black2);border:2px solid var(--line);border-radius:var(--r-lg);padding:18px 20px;cursor:pointer;transition:all .2s;margin-bottom:10px;display:flex;align-items:flex-start;gap:16px}
+.trig-card:hover{border-color:var(--line2);background:var(--black3)}
+.trig-card.selected{border-color:var(--GA-red);background:rgba(232,51,58,.04)}
+.trig-card.locked{cursor:default}
+.trig-icon{font-size:1.6rem;flex-shrink:0;margin-top:2px}
+.trig-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:3px}
+.trig-desc{font-size:.85rem;color:var(--gray);line-height:1.55}
+.trig-card.selected .trig-desc{color:var(--gray-lt)}
+
+/* ── STEP SEQUENCER ── */
+.step-bank{display:flex;flex-direction:column;gap:8px;margin-bottom:4px}
+.bank-item{display:flex;align-items:center;gap:12px;background:var(--black2);border:2px solid var(--line);border-radius:var(--r-lg);padding:12px 16px;cursor:pointer;transition:all .18s;user-select:none}
+.bank-item:hover:not(.used){border-color:var(--GA-red);color:#fff}
+.bank-item.used{opacity:.35;cursor:default}
+.bank-icon{font-size:1.1rem;flex-shrink:0}
+.bank-text{font-size:.9rem;color:var(--gray-lt);font-weight:600;flex:1;line-height:1.35}
+
+.seq-list{display:flex;flex-direction:column;gap:8px}
+.seq-slot{min-height:54px;border:2px dashed var(--line2);border-radius:var(--r-lg);display:flex;align-items:center;padding:10px 14px;gap:12px;font-size:.83rem;color:var(--gray-dk);transition:all .2s;cursor:pointer;position:relative}
+.seq-slot:hover:not(.filled){border-color:var(--GA-red);color:var(--gray)}
+.seq-slot.filled{border-style:solid;border-color:var(--line2);background:var(--black2);cursor:default}
+.seq-slot.correct{border-color:var(--green)!important;background:rgba(34,197,94,.05)!important}
+.seq-slot.wrong{border-color:var(--GA-red)!important;background:rgba(232,51,58,.05)!important}
+.slot-num{width:28px;height:28px;flex-shrink:0;background:var(--black3);border:1.5px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;color:var(--gray)}
+.seq-slot.correct .slot-num{background:var(--green);border-color:var(--green);color:var(--black)}
+.seq-slot.wrong   .slot-num{background:var(--GA-red);border-color:var(--GA-red);color:#fff}
+.slot-body{flex:1;font-size:.88rem;color:var(--gray-lt);font-weight:600;line-height:1.4}
+.slot-clear{font-size:.7rem;color:var(--gray-dk);cursor:pointer;padding:3px 7px;border-radius:3px;transition:all .15s;flex-shrink:0}
+.slot-clear:hover{background:rgba(232,51,58,.15);color:var(--GA-red)}
+
+/* ── TOOL MAP ── */
+.tool-row{background:var(--black2);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tool-step-label{font-size:.85rem;font-weight:700;color:var(--gray-lt);flex:1;min-width:160px}
+.tool-select{background:var(--black3);border:1.5px solid var(--line2);border-radius:var(--r);padding:8px 12px;font-family:'Barlow',sans-serif;font-size:.88rem;color:var(--gray-lt);cursor:pointer;outline:none;min-width:210px;transition:border-color .15s}
+.tool-select:focus{border-color:var(--GA-red)}
+.tool-fb{font-size:.8rem;padding:5px 10px;border-radius:var(--r);min-width:110px;display:none}
+
+/* ── LEAD SIMULATOR ── */
+.lead-card{background:var(--black2);border:2px solid var(--line);border-radius:var(--r-lg);overflow:hidden;margin-bottom:12px;transition:border-color .4s}
+.lead-card.running{border-color:var(--yellow)}
+.lead-card.qualified{border-color:var(--green)}
+.lead-card.disqualified{border-color:var(--gray-dk)}
+.lead-card.review{border-color:var(--orange)}
+.lead-header{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.lead-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;flex-shrink:0}
+.lead-name{font-weight:700;font-size:.95rem;color:#fff}
+.lead-meta{font-size:.82rem;color:var(--gray);margin-top:1px}
+.lead-status{margin-left:auto;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.lead-trace{display:none;border-top:1px solid var(--line);background:#0a0a0a;padding:14px 18px}
+.lead-trace.show{display:block}
+.trace-row{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--gray-lt);line-height:1.55}
+.trace-row:last-child{border-bottom:none}
+.trace-badge{flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:3px;background:var(--black3);color:var(--gray);white-space:nowrap;margin-top:2px}
+.trace-icon{flex-shrink:0;font-size:.75rem;font-weight:700;margin-top:3px}
+
+/* ── METRIC CARDS ── */
+.metric-card{background:var(--black2);border:2px solid var(--line);border-radius:var(--r-lg);padding:20px 22px;cursor:pointer;transition:all .2s;margin-bottom:10px;position:relative}
+.metric-card:hover:not(.locked){border-color:var(--line2);background:var(--black3)}
+.metric-card.selected{border-color:var(--GA-red);background:rgba(232,51,58,.04)}
+.metric-card.locked{cursor:default}
+.metric-card.correct-metric{border-color:var(--green)!important;background:rgba(34,197,94,.04)!important}
+.metric-card.wrong-metric{border-color:var(--GA-red)!important}
+.metric-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:5px}
+.metric-formula{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--teal);background:var(--black3);padding:4px 10px;border-radius:3px;display:inline-block;margin-bottom:8px}
+.metric-why{font-size:.86rem;color:var(--gray);line-height:1.55}
+
+/* ── FULL LOOP ── */
+.loop-phase{border-left:3px solid var(--line);padding:0 0 28px 22px;position:relative;opacity:.25;transition:opacity .5s,border-color .5s}
+.loop-phase.active{opacity:1}
+.loop-dot{position:absolute;left:-12px;top:0;width:24px;height:24px;border-radius:50%;background:var(--black);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .4s}
+.loop-phase-label{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
+.loop-phase-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.3}
+.loop-items{display:flex;flex-direction:column;gap:0}
+.loop-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.84rem;color:var(--gray-lt);line-height:1.55;animation:fadeUp .25s ease both}
+.loop-item:last-child{border-bottom:none}
+.loop-arrow{color:var(--GA-red);flex-shrink:0;font-size:.7rem;margin-top:4px}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.spin{display:inline-block;animation:spin 1s linear infinite}
+
+/* ── PIPELINE VISUAL ── */
+.pipeline-row{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:18px;background:var(--black2);border:1px solid var(--line);border-radius:var(--r-lg)}
+.pipe-stage{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;min-width:60px}
+.pipe-circle{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;border:2px solid var(--line);background:var(--black3);transition:all .5s}
+.pipe-circle.lit{border-color:var(--GA-red);background:rgba(232,51,58,.14)}
+.pipe-circle.done{border-color:var(--green);background:rgba(34,197,94,.12)}
+.pipe-label{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-dk);text-align:center;line-height:1.2}
+.pipe-arrow{color:var(--line2);font-size:.85rem;flex-shrink:0;align-self:center;padding-bottom:18px}
+
+/* ── MCQ ── */
+.mcq-opt{background:var(--black2);border:2px solid var(--line);border-radius:var(--r-lg);padding:12px 16px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;font-size:.91rem;color:var(--gray-lt);transition:all .15s;text-align:left;width:100%;margin-bottom:8px}
+.mcq-opt:hover:not(.disabled){border-color:var(--GA-red);color:#fff}
+.mcq-opt.correct{border-color:var(--green);background:rgba(34,197,94,.07);color:#fff}
+.mcq-opt.wrong  {border-color:var(--GA-red);background:rgba(232,51,58,.07)}
+.mcq-opt.disabled{cursor:default}
+.opt-k{width:26px;height:26px;border-radius:5px;flex-shrink:0;background:var(--black3);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;color:var(--gray);transition:all .15s;margin-top:1px}
+.mcq-opt.correct .opt-k{background:var(--green);border-color:var(--green);color:var(--black)}
+.mcq-opt.wrong   .opt-k{background:var(--GA-red);border-color:var(--GA-red);color:#fff}
+.mcq-fb{display:none;border-radius:var(--r-lg);padding:12px 16px;font-size:.87rem;line-height:1.62;margin-top:6px}
+.mcq-fb.show{display:block}
+.mcq-fb.ok {background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:#86efac}
+.mcq-fb.bad{background:rgba(232,51,58,.1);border:1px solid rgba(232,51,58,.25);color:#fca5a5}
+
+/* ── QUIZ ── */
+.qz-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.qz-meta span{font-size:.85rem;color:var(--gray)}
+.prog-bar{height:4px;background:var(--black3);border-radius:2px;margin-bottom:28px;overflow:hidden}
+.prog-fill{height:100%;background:var(--GA-red);border-radius:2px;transition:width .4s}
+.quiz-q{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;line-height:1.3;color:#fff;margin-bottom:20px}
+.q-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.q-opt{background:var(--black2);border:2px solid var(--line);border-radius:var(--r-lg);padding:14px 18px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;font-size:.95rem;color:var(--gray-lt);transition:all .16s;text-align:left;width:100%}
+.q-opt:hover:not(.disabled){border-color:var(--GA-red);color:#fff;background:rgba(232,51,58,.05)}
+.q-opt.correct{border-color:var(--green);background:rgba(34,197,94,.07);color:#fff}
+.q-opt.wrong  {border-color:var(--GA-red);background:rgba(232,51,58,.08);color:#fff}
+.q-opt.disabled{cursor:default}
+.q-opt-k{width:30px;height:30px;border-radius:6px;flex-shrink:0;background:var(--black3);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;color:var(--gray)}
+.q-opt.correct .q-opt-k{background:var(--green);border-color:var(--green);color:var(--black)}
+.q-opt.wrong   .q-opt-k{background:var(--GA-red);border-color:var(--GA-red);color:#fff}
+.q-opt:hover:not(.disabled) .q-opt-k{border-color:var(--GA-red);color:var(--GA-red)}
+.fb-box{display:none;border-radius:var(--r-lg);padding:14px 18px;font-size:.92rem;line-height:1.6;margin-bottom:14px}
+.fb-box.show{display:flex;gap:10px;align-items:flex-start}
+.fb-box.ok {background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#86efac}
+.fb-box.bad{background:rgba(232,51,58,.1);border:1px solid rgba(232,51,58,.3);color:#fca5a5}
+
+/* ── RESULTS ── */
+.results-ring{position:relative;width:120px;height:120px;flex-shrink:0}
+.results-ring-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-pct{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;line-height:1}
+.ring-sub{font-size:.7rem;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.score-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.score-row:last-child{border-bottom:none}
+.score-bar-wrap{width:80px;height:3px;background:var(--black3);border-radius:2px;flex-shrink:0}
+.score-bar-fill{height:100%;border-radius:2px}
+.tk-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tk-item:last-child{border-bottom:none}
+.tk-num{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--GA-red);flex-shrink:0;line-height:1;padding-top:2px}
+.tk-txt{font-size:.92rem;color:var(--gray-lt);line-height:1.65}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ga-logo" onclick="nav('intro')">
+    <div class="ga-mark">GA</div>
+    <div class="ga-name">General Assembly<span>Build AI Agents · BAA 11.0</span></div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab active" id="t-intro"    onclick="nav('intro')">⬡ Overview</div>
+    <div class="tab"        id="t-brief"    onclick="nav('brief')">📋 Brief</div>
+    <div class="tab"        id="t-trigger"  onclick="nav('trigger')">⚡ Trigger</div>
+    <div class="tab"        id="t-steps"    onclick="nav('steps')">↻ Steps</div>
+    <div class="tab"        id="t-tools"    onclick="nav('tools')">🔧 Tools</div>
+    <div class="tab"        id="t-simulate" onclick="nav('simulate')">▶ Simulate</div>
+    <div class="tab"        id="t-metric"   onclick="nav('metric')">📊 Metric</div>
+    <div class="tab"        id="t-loop"     onclick="nav('loop')">🔄 Full Loop</div>
+    <div class="tab"        id="t-quiz"     onclick="nav('quiz')">◇ Check</div>
+    <div class="tab"        id="t-results"  onclick="nav('results')">★ Results</div>
+  </div>
+  <div class="hd-end"><div class="prog-chip" id="progressChip">0 / 6</div></div>
+</header>
+
+<!-- ═══════════════════ INTRO ═══════════════════ -->
+<div class="section active" id="s-intro">
+  <div class="wrap">
+    <div class="a1" style="padding-bottom:40px;border-bottom:1px solid var(--line);margin-bottom:36px">
+      <div class="hero-kicker"><div class="dot"></div>Hands-On Lab · Module 11 · BAA 11.0</div>
+      <h1>Process<br/><span class="red">Automation Plan</span></h1>
+      <p class="lead">You'll design a complete automation for a daily sales lead qualification workflow — from the trigger that starts it, to the 7 agent steps that run it, to the metric that proves it works. Then you'll run the full agentic loop live.</p>
+      <button class="btn btn-red" onclick="nav('brief')">Start Planning →</button>
+    </div>
+
+    <span class="eyebrow">The Agentic Pipeline You'll Design</span>
+    <div class="pipeline-row a2" id="introPipeline">
+      <div class="pipe-stage"><div class="pipe-circle" id="pc0">⚡</div><div class="pipe-label">Trigger</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage"><div class="pipe-circle" id="pc1">🔍</div><div class="pipe-label">Dedup</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage"><div class="pipe-circle" id="pc2">✉️</div><div class="pipe-label">Verify</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage"><div class="pipe-circle" id="pc3">🏢</div><div class="pipe-label">Enrich</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage"><div class="pipe-circle" id="pc4">📊</div><div class="pipe-label">Score</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage"><div class="pipe-circle" id="pc5">🔀</div><div class="pipe-label">Route</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage"><div class="pipe-circle" id="pc6">📝</div><div class="pipe-label">Draft</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage"><div class="pipe-circle" id="pc7">📋</div><div class="pipe-label">Log</div></div>
+    </div>
+
+    <div class="hr"></div>
+    <span class="eyebrow">Lab Roadmap</span>
+    <div class="card a3">
+      <div class="roadmap">
+        <div class="rm-item"><div class="rm-dot" id="dot-brief">—</div><div><div class="rm-label" id="lbl-brief">Read the Brief — understand the manual problem you're replacing</div><div class="rm-sub">Apex Revenue Co. · 40–120 leads/day · 2-hour manual bottleneck</div></div></div>
+        <div class="rm-item"><div class="rm-dot" id="dot-trigger">1</div><div><div class="rm-label" id="lbl-trigger">Design the Trigger</div><div class="rm-sub">Choose the right trigger architecture and configure dedup logic</div></div></div>
+        <div class="rm-item"><div class="rm-dot" id="dot-steps">2</div><div><div class="rm-label" id="lbl-steps">Assemble the 7-Step Pipeline</div><div class="rm-sub">Place steps in correct order — some options are decoys</div></div></div>
+        <div class="rm-item"><div class="rm-dot" id="dot-tools">3</div><div><div class="rm-label" id="lbl-tools">Map the Tool Stack</div><div class="rm-sub">Assign the right tool to each of the 7 steps</div></div></div>
+        <div class="rm-item"><div class="rm-dot" id="dot-simulate">4</div><div><div class="rm-label" id="lbl-simulate">Simulate 5 Live Leads</div><div class="rm-sub">Run the agent — watch it qualify, disqualify, and flag in real time</div></div></div>
+        <div class="rm-item"><div class="rm-dot" id="dot-metric">5</div><div><div class="rm-label" id="lbl-metric">Select the Efficiency Metric</div><div class="rm-sub">Choose the one KPI that proves this automation is generating business value</div></div></div>
+        <div class="rm-item"><div class="rm-dot" id="dot-loop">6</div><div><div class="rm-label" id="lbl-loop">Observe the Full Agent Loop</div><div class="rm-sub">Watch Perceive → Reason → Act → Observe animate step by step on a new lead</div></div></div>
+        <div class="rm-item"><div class="rm-dot" id="dot-quiz">—</div><div><div class="rm-label">Knowledge Check · 7 questions · 70% to pass</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ BRIEF ═══════════════════ -->
+<div class="section" id="s-brief">
+  <div class="wrap">
+    <span class="eyebrow">The Problem to Solve</span>
+    <h2>Apex Revenue Co. — <span class="red">The Manual Nightmare</span></h2>
+    <p class="lead">Before you design the automation, understand exactly what you're replacing — and where the 2 hours per day disappears.</p>
+
+    <div class="card" style="border-left:4px solid var(--GA-red);padding:22px 24px;margin-bottom:16px">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--GA-red);margin-bottom:12px">Current State — Apex Revenue Co.</div>
+      <p style="font-size:.93rem;color:var(--gray-lt);line-height:1.85">Apex is a B2B SaaS company with a 6-person sales team. Every morning, <strong style="color:#fff">40–120 new leads</strong> arrive from three sources: their website contact form, LinkedIn lead-gen ads, and a data provider (ZoomInfo). Each lead requires the same 7-step manual checklist before a rep can touch it:<br/><br/>
+      <strong style="color:#fff">① Check CRM</strong> for duplicates — to prevent embarrassing double-outreach<br/>
+      <strong style="color:#fff">② Verify the email</strong> — bounced mail burns domain reputation with ISPs<br/>
+      <strong style="color:#fff">③ Enrich company data</strong> — employee count, funding stage, industry from a third-party API<br/>
+      <strong style="color:#fff">④ Score against ICP</strong> — job title, company size, industry, funding stage, intent signals<br/>
+      <strong style="color:#fff">⑤ Route to the right rep</strong> — by territory (region) and vertical (industry)<br/>
+      <strong style="color:#fff">⑥ Draft personalized outreach</strong> — reference recent company news and job posting signals<br/>
+      <strong style="color:#fff">⑦ Log everything to Salesforce</strong> — score, routing decision, draft email attached<br/><br/>
+      The SDR team lead does steps ①–④ every morning. It takes <strong style="color:#fff">90–120 minutes</strong>. Research shows leads older than 4 hours have a <strong style="color:#fff">5× lower response rate</strong>. By the time they're processed, most leads are cold.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:rgba(232,51,58,.06);border:1px solid rgba(232,51,58,.2);border-radius:var(--r-lg);padding:18px 20px">
+        <div style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--GA-red);margin-bottom:10px">😤 Current State</div>
+        <div style="display:flex;flex-direction:column;gap:7px;font-size:.87rem;color:var(--gray-lt)">
+          <div>⏱ Time to outreach: <strong style="color:#fff">2–4 hours</strong></div>
+          <div>📉 Response rate after 4h: <strong style="color:#fff">5× lower</strong></div>
+          <div>💸 SDR admin time: <strong style="color:#fff">90–120 min/day</strong></div>
+          <div>🔴 Duplicate outreach: <strong style="color:#fff">~3 incidents/week</strong></div>
+          <div>📊 Throughput cap: <strong style="color:#fff">one SDR's bandwidth</strong></div>
+        </div>
+      </div>
+      <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r-lg);padding:18px 20px">
+        <div style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px">🎯 Agent Target State</div>
+        <div style="display:flex;flex-direction:column;gap:7px;font-size:.87rem;color:var(--gray-lt)">
+          <div>⏱ Time to outreach: <strong style="color:#fff">&lt; 8 minutes</strong></div>
+          <div>📈 Leads contacted while warm: <strong style="color:#fff">100%</strong></div>
+          <div>💚 SDR admin time: <strong style="color:#fff">&lt;10 min/day (review only)</strong></div>
+          <div>🟢 Duplicate outreach: <strong style="color:#fff">0 (automated CRM check)</strong></div>
+          <div>📊 Throughput: <strong style="color:#fff">unlimited — no bottleneck</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <strong>⚠️ Human-in-the-loop boundary:</strong> The agent qualifies, scores, routes, and drafts the outreach email — but <strong>a human rep reviews and sends</strong> the final email. The agent never directly contacts a lead. Your automation plan must respect this boundary.
+    </div>
+
+    <div style="margin-top:24px">
+      <button class="btn btn-red" onclick="markDone('brief');nav('trigger')">Design the Trigger →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TRIGGER ═══════════════════ -->
+<div class="section" id="s-trigger">
+  <div class="wrap">
+    <span class="eyebrow">Section 01 · Design Activity</span>
+    <h2>Design the <span class="red">Trigger</span></h2>
+    <p class="lead">The trigger is the event that fires the agent. It determines lead freshness, duplicate risk, and whether the automation actually solves the response-time problem. Choose the right architecture — then answer two configuration questions.</p>
+
+    <div class="callout callout-tip" style="margin-bottom:20px">
+      <strong>💡 Trigger principle:</strong> Match the cadence of the trigger to the urgency of the process. A workflow built around a 4-hour response-time problem cannot run on a nightly batch.
+    </div>
+
+    <span class="eyebrow" style="margin-bottom:10px">Step 1 — Pick the Trigger Architecture</span>
+    <div id="triggerOptions"></div>
+    <div id="triggerQ1wrap" style="display:none;margin-top:20px">
+      <div class="hr" style="margin:20px 0"/>
+      <span class="eyebrow">Step 2 — Answer: Which trigger is correct for this use case?</span>
+      <div id="triggerQ1"></div>
+    </div>
+    <div id="triggerQ2wrap" style="display:none;margin-top:20px">
+      <div class="hr" style="margin:20px 0"/>
+      <span class="eyebrow">Step 3 — Configure: What dedup check fires before the pipeline starts?</span>
+      <div id="triggerQ2"></div>
+    </div>
+    <div id="triggerDone" style="display:none;margin-top:20px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ STEPS ═══════════════════ -->
+<div class="section" id="s-steps">
+  <div class="wrap">
+    <span class="eyebrow">Section 02 · Build Activity</span>
+    <h2>Assemble the <span class="red">Agent Steps</span></h2>
+    <p class="lead">Below are 10 candidate steps. Your pipeline needs exactly 7 — in the right order. Click a step from the library, then click a numbered slot to place it. Three options are decoys that violate the human-in-the-loop boundary or don't belong in this workflow.</p>
+
+    <div class="callout callout-warn" style="margin-bottom:20px">
+      <strong>Design constraint:</strong> The agent drafts the outreach email but never sends it. Any step where the agent directly contacts a lead is out of scope.
+    </div>
+
+    <div style="font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-dk);margin-bottom:8px">Step Library — click to select, then click a slot below</div>
+    <div id="stepBank"></div>
+
+    <div class="hr" style="margin:20px 0"/>
+    <div style="font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-dk);margin-bottom:8px">Your 7-Step Pipeline</div>
+    <div class="seq-list" id="stepSlots"></div>
+
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-red" id="stepsCheckBtn" onclick="checkSteps()" disabled>Check Pipeline Order</button>
+      <button class="btn btn-ghost" id="stepsNextBtn" style="display:none" onclick="markDone('steps');nav('tools')">Next: Tool Stack →</button>
+    </div>
+    <div id="stepsResult" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TOOLS ═══════════════════ -->
+<div class="section" id="s-tools">
+  <div class="wrap">
+    <span class="eyebrow">Section 03 · Design Activity</span>
+    <h2>Tool Stack <span class="red">Assignment</span></h2>
+    <p class="lead">Each of the 7 pipeline steps needs a specific tool. Match the right tool to each step. Two tools appear more than once — that's intentional. Two listed tools are decoys that don't belong in any step.</p>
+
+    <div id="toolRows"></div>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-red" id="toolsCheckBtn" onclick="checkTools()">Check Assignments</button>
+      <button class="btn btn-ghost" id="toolsNextBtn" style="display:none" onclick="markDone('tools');nav('simulate')">Next: Simulate Leads →</button>
+    </div>
+    <div id="toolsResult" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SIMULATE ═══════════════════ -->
+<div class="section" id="s-simulate">
+  <div class="wrap">
+    <span class="eyebrow">Section 04 · Live Simulation</span>
+    <h2>Run the <span class="red">Agent</span></h2>
+    <p class="lead">Five leads just arrived. Click Run All to process each one through your 7-step pipeline. Watch the step-by-step reasoning trace, then see the final verdict for each lead.</p>
+
+    <div class="callout callout-tip" style="margin-bottom:20px">
+      <strong>💡 Apex ICP:</strong> Company 50–500 employees · Series A–C · Title VP+/Director+ in Sales/Marketing/RevOps/Growth · Industry: SaaS/FinTech/HealthTech · Email deliverable · Not already in CRM
+    </div>
+
+    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="btn btn-red" id="runAllBtn" onclick="runAll()">▶ Run All 5 Leads</button>
+      <button class="btn btn-ghost" onclick="resetSim()">↺ Reset</button>
+    </div>
+    <div id="leadCards"></div>
+    <div id="simSummary" style="display:none;margin-top:16px;background:var(--black2);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px">
+      <div style="font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-dk);margin-bottom:12px">Batch Results</div>
+      <div id="simSummaryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px"></div>
+    </div>
+    <div style="margin-top:18px">
+      <button class="btn btn-ghost" id="simNextBtn" style="display:none" onclick="markDone('simulate');nav('metric')">Next: Select Metric →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ METRIC ═══════════════════ -->
+<div class="section" id="s-metric">
+  <div class="wrap">
+    <span class="eyebrow">Section 05 · Design Activity</span>
+    <h2>The Efficiency <span class="red">Metric</span></h2>
+    <p class="lead">Your agent is running. Now you need to prove it's working. Choose the one key efficiency metric you'd track — the one that maps directly to the business outcome this automation was built to deliver.</p>
+
+    <div class="callout callout-purple" style="margin-bottom:20px">
+      <strong>🔮 The trap:</strong> Most people choose a volume metric (leads processed/day). Volume proves the agent is alive — not that it's valuable. The right metric measures the <em>outcome</em> the business actually cares about.
+    </div>
+
+    <div id="metricCards"></div>
+    <div id="metricQuiz" style="display:none;margin-top:20px"></div>
+    <div id="metricNext" style="display:none;margin-top:16px">
+      <button class="btn btn-red" onclick="markDone('metric');nav('loop')">Next: Full Agent Loop →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ LOOP ═══════════════════ -->
+<div class="section" id="s-loop">
+  <div class="wrap">
+    <span class="eyebrow">Section 06 · Capstone</span>
+    <h2>The Full <span class="red">Agent Loop</span></h2>
+    <p class="lead">Watch the complete <strong style="color:#fff">Perceive → Reason → Act → Observe</strong> cycle run on one final lead. This is the conceptual architecture behind every autonomous agent — not a linear script, but a loop that evaluates and adapts.</p>
+
+    <div class="callout callout-tip" style="margin-bottom:20px">
+      <strong>💡 Loop vs. script:</strong> A script runs once and stops. An agent loops — it observes the result of its actions and decides whether to act again. The OBSERVE phase is where agent intelligence lives.
+    </div>
+
+    <div id="loopLeadCard" style="background:var(--black2);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:var(--r-lg);padding:18px 20px;margin-bottom:20px"></div>
+
+    <div id="loopPhases" style="padding-left:8px"></div>
+
+    <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-red" id="loopRunBtn" onclick="runLoop()">▶ Run Full Agent Loop</button>
+      <button class="btn btn-ghost" id="loopResetBtn" style="display:none" onclick="resetLoop()">↺ Replay</button>
+    </div>
+    <div id="loopConclusion" style="display:none;margin-top:20px"></div>
+    <div style="margin-top:18px">
+      <button class="btn btn-ghost" id="loopNextBtn" style="display:none" onclick="markDone('loop');nav('quiz')">Proceed to Knowledge Check →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ QUIZ ═══════════════════ -->
+<div class="section" id="s-quiz">
+  <div class="wrap">
+    <span class="eyebrow">Knowledge Check</span>
+    <h2>7 <span class="red">Questions</span></h2>
+    <p class="lead">Drawn from every section of this lab. 70% to pass.</p>
+    <div id="quizActive">
+      <div class="qz-meta"><span id="qMeta">Question 1 of 7</span><span id="qScoreTxt">Score: 0 / 0</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="qProg" style="width:0%"></div></div>
+      <div class="card card-rb">
+        <div class="quiz-q" id="quizQ"></div>
+        <div class="q-opts" id="quizOpts"></div>
+        <div class="fb-box" id="quizFB"></div>
+        <div><button class="btn btn-red" id="qNextBtn" style="display:none" onclick="nextQ()">Continue →</button></div>
+      </div>
+    </div>
+    <div id="quizDone" style="display:none">
+      <div class="card card-rb">
+        <h3 style="font-size:1.2rem;margin-bottom:8px">Quiz Complete <span id="qBadge"></span></h3>
+        <p id="qMsg" style="font-size:.95rem;color:var(--gray-lt);margin-bottom:20px;line-height:1.7"></p>
+        <button class="btn-green" onclick="markDone('quiz');buildResults();nav('results')">See My Results →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ RESULTS ═══════════════════ -->
+<div class="section" id="s-results">
+  <div class="wrap">
+    <span class="eyebrow">Lab Debrief</span>
+    <h2>Automation Plan <span class="red">Complete</span></h2>
+    <div id="resultsBody"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ SCRIPT ═══════════════════ -->
+<script>
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+const ALL_SECS=['intro','brief','trigger','steps','tools','simulate','metric','loop','quiz','results'];
+let completed=new Set(), sectionScores={};
+function nav(id){
+  ALL_SECS.forEach(s=>{
+    document.getElementById('s-'+s).classList.remove('active');
+    const t=document.getElementById('t-'+s);if(t)t.classList.remove('active');
+  });
+  document.getElementById('s-'+id).classList.add('active');
+  const t=document.getElementById('t-'+id);if(t)t.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='trigger'  && !triggerBuilt) buildTrigger();
+  if(id==='steps'    && !stepsBuilt)   buildSteps();
+  if(id==='tools'    && !toolsBuilt)   buildTools();
+  if(id==='simulate' && !simBuilt)     buildSim();
+  if(id==='metric'   && !metricBuilt)  buildMetric();
+  if(id==='loop'     && !loopBuilt)    buildLoop();
+  if(id==='quiz'     && !quizStarted)  initQuiz();
+}
+function markDone(key){
+  completed.add(key);
+  document.getElementById('progressChip').textContent=completed.size+' / 6';
+  const d=document.getElementById('dot-'+key), l=document.getElementById('lbl-'+key);
+  if(d){d.className='rm-dot done'; d.textContent='✓';}
+  if(l) l.className='rm-label done';
+}
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+
+// ─── TRIGGER ─────────────────────────────────────────────────────────────────
+let triggerBuilt=false, tq1Done=false, tq2Done=false;
+
+const TRIGGER_OPTS=[
+  {id:'event',   icon:'⚡', title:'Event-Driven Webhook',       desc:'Fires the instant a new lead record is created in the CRM or form is submitted — via real-time webhook.',   correct:true},
+  {id:'batch',   icon:'🕐', title:'Daily Batch Cron (7 AM)',     desc:'Runs once per day, processes all leads accumulated since the previous run.',                                correct:false},
+  {id:'manual',  icon:'👆', title:'Manual Trigger (SDR clicks)', desc:'SDR team lead clicks "Run Qualification" whenever they\'re ready to process the queue.',                     correct:false},
+  {id:'poll',    icon:'🔄', title:'Polling Every 15 Minutes',    desc:'Agent checks for new leads every 15 minutes and processes any found since the last check.',                  correct:false},
+];
+
+function buildTrigger(){
+  triggerBuilt=true;
+  const el=document.getElementById('triggerOptions');
+  TRIGGER_OPTS.forEach(o=>{
+    const d=document.createElement('div'); d.className='trig-card'; d.id='tc-'+o.id;
+    d.innerHTML=`<div class="trig-icon">${o.icon}</div><div><div class="trig-title">${o.title}</div><div class="trig-desc">${o.desc}</div></div>`;
+    d.addEventListener('click',()=>selectTrigger(o.id));
+    el.appendChild(d);
+  });
+}
+function selectTrigger(id){
+  if(tq1Done)return;
+  document.querySelectorAll('.trig-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('tc-'+id).classList.add('selected');
+  document.getElementById('triggerQ1wrap').style.display='block';
+  buildTQ1();
+}
+function buildTQ1(){
+  if(tq1Done)return;
+  const el=document.getElementById('triggerQ1'); el.innerHTML='';
+  const opts=[
+    {k:'A',text:'Event-driven webhook — fires the instant a lead submits, keeping the agent inside the warm-lead window.',ans:true,
+     fb:'Correct. The entire business case rests on response time. A 4-hour lag causes a 5× drop in response rates. Event-driven is the only architecture that guarantees sub-8-minute processing — any batching or polling reintroduces the lag you\'re trying to eliminate.'},
+    {k:'B',text:'Daily cron at 7 AM — all overnight leads are processed together before the SDRs start their day.',ans:false,
+     fb:'A daily batch means leads from 6 PM the previous day wait 13 hours. The brief explicitly states leads older than 4 hours have a 5× lower response rate. A scheduled trigger structurally guarantees cold leads — it doesn\'t solve the problem, it just shifts when the problem occurs.'},
+    {k:'C',text:'Polling every 15 minutes — close to real-time without requiring webhook infrastructure.',ans:false,
+     fb:'A 15-minute poll means leads can wait up to 15 minutes before processing begins — still inside the warm window, but unnecessarily delayed. Modern CRMs (HubSpot, Salesforce) support webhooks natively with minimal setup. The marginal complexity cost is worth the freshness guarantee.'},
+    {k:'D',text:'Manual trigger — keeps the SDR lead in control of when the pipeline runs.',ans:false,
+     fb:'Manual triggers eliminate the automation\'s core value proposition. If the SDR still has to decide when to run it, the human bottleneck hasn\'t been removed — it\'s been renamed. The trigger must remove the human decision entirely to deliver the speed improvement.'},
+  ];
+  renderMCQ(el, opts, (correct)=>{
+    tq1Done=true;
+    sectionScores.trigger=(sectionScores.trigger||0)+(correct?1:0);
+    setTimeout(()=>{ document.getElementById('triggerQ2wrap').style.display='block'; buildTQ2(); }, 500);
+  });
+}
+function buildTQ2(){
+  if(tq2Done)return;
+  const el=document.getElementById('triggerQ2'); el.innerHTML='';
+  const opts=[
+    {k:'A',text:'No dedup check — the CRM enforces uniqueness automatically.',ans:false,
+     fb:'CRMs create duplicate records constantly, especially across multiple lead sources. A lead who fills out your website form AND gets imported from ZoomInfo will appear twice. Without an explicit dedup step, reps will contact the same person twice — or contact an existing customer as if they\'re a new lead.'},
+    {k:'B',text:'Check for exact email match in the CRM contact records only.',ans:false,
+     fb:'Email match alone misses the most common duplicate pattern: two contacts at the same company. Alex@company.com and Jordan@company.com are different emails but the same account. The check should match on both email AND company domain.'},
+    {k:'C',text:'Check if the lead\'s email OR company domain already exists as a contact, open deal, or account in the CRM — route to existing owner if matched.',ans:true,
+     fb:'Correct. A dual-key check (email + domain) catches individual duplicates AND company-level duplicates. If matched, the agent doesn\'t discard the lead — it routes it to the existing account owner with context. This eliminates the ~3 duplicate outreach incidents per week.'},
+    {k:'D',text:'Check if the lead submitted a form in the last 7 days.',ans:false,
+     fb:'A time-windowed check misses long-dormant leads who re-engage, existing customers who submit out of curiosity, and prospects who were already contacted last quarter. The check should be on CRM record existence — not submission recency.'},
+  ];
+  renderMCQ(el, opts, (correct)=>{
+    tq2Done=true;
+    sectionScores.trigger=(sectionScores.trigger||0)+(correct?1:0);
+    document.getElementById('triggerDone').style.display='block';
+    document.getElementById('triggerDone').innerHTML=`<div class="callout callout-success"><strong>✓ Trigger design complete.</strong><br/>Event-driven webhook · fires on new CRM record creation · pre-flight email + domain dedup check · sub-8-minute processing guaranteed.</div><div style="margin-top:14px"><button class="btn btn-red" onclick="markDone('trigger');nav('steps')">Next: Build the Agent Steps →</button></div>`;
+  });
+}
+
+// ─── STEPS ───────────────────────────────────────────────────────────────────
+let stepsBuilt=false, selectedStepId=null, slotContents=Array(7).fill(null), stepsChecked=false;
+
+const STEP_BANK=[
+  {id:'dedup', icon:'🔍', text:'Deduplication check — search CRM for matching email or company domain',          correct:true,  order:1},
+  {id:'email', icon:'✉️', text:'Email verification — validate deliverability via Hunter.io or Clearbit Reveal', correct:true,  order:2},
+  {id:'enrich',icon:'🏢', text:'Company enrichment — fetch headcount, funding stage, industry via Clearbit/Apollo',correct:true, order:3},
+  {id:'score', icon:'📊', text:'ICP scoring — evaluate against 5 criteria: title, size, industry, funding, intent',correct:true, order:4},
+  {id:'route', icon:'🔀', text:'Routing decision — assign rep by territory and vertical based on score',         correct:true,  order:5},
+  {id:'draft', icon:'📝', text:'Outreach draft — generate personalized email using company news and job signals',  correct:true,  order:6},
+  {id:'log',   icon:'📋', text:'CRM logging — write score, routing, and draft email to the Salesforce lead record',correct:true, order:7},
+  // Decoys
+  {id:'send',  icon:'🚀', text:'Send outreach email directly to the lead (no rep review)',                       correct:false},
+  {id:'book',  icon:'📅', text:'Auto-book a discovery call on the rep\'s calendar without approval',            correct:false},
+  {id:'train', icon:'🧠', text:'Retrain the ICP scoring model on this lead\'s outcome in real time',            correct:false},
+];
+
+function buildSteps(){
+  stepsBuilt=true;
+  // Bank
+  const bankEl=document.getElementById('stepBank');
+  STEP_BANK.forEach(s=>{
+    const d=document.createElement('div'); d.className='bank-item'; d.id='bi-'+s.id;
+    d.innerHTML=`<span class="bank-icon">${s.icon}</span><span class="bank-text">${s.text}</span>`;
+    d.addEventListener('click',()=>bankClick(s.id));
+    bankEl.appendChild(d);
+  });
+  // Slots
+  const slotsEl=document.getElementById('stepSlots');
+  for(let i=0;i<7;i++){
+    const slot=document.createElement('div'); slot.className='seq-slot'; slot.id='ss-'+i;
+    slot.innerHTML=`<div class="slot-num">${i+1}</div><div class="slot-body" style="color:var(--gray-dk)">click a step above, then click here</div>`;
+    slot.addEventListener('click',()=>slotClick(i));
+    slotsEl.appendChild(slot);
+  }
+}
+function bankClick(id){
+  if(stepsChecked)return;
+  const alreadyAt=slotContents.indexOf(id);
+  if(alreadyAt!==-1){ clearSlot(alreadyAt); return; }
+  document.querySelectorAll('.bank-item').forEach(b=>b.style.outline='none');
+  if(selectedStepId===id){ selectedStepId=null; return; }
+  selectedStepId=id;
+  document.getElementById('bi-'+id).style.outline='2px solid var(--GA-red)';
+}
+function slotClick(i){
+  if(stepsChecked)return;
+  if(slotContents[i]){ clearSlot(i); return; }
+  if(!selectedStepId)return;
+  slotContents[i]=selectedStepId;
+  document.getElementById('bi-'+selectedStepId).classList.add('used');
+  document.getElementById('bi-'+selectedStepId).style.outline='none';
+  selectedStepId=null;
+  renderSlot(i);
+  document.getElementById('stepsCheckBtn').disabled=slotContents.filter(Boolean).length<7;
+}
+function clearSlot(i){
+  const old=slotContents[i]; if(!old)return;
+  slotContents[i]=null;
+  document.getElementById('bi-'+old).classList.remove('used');
+  document.getElementById('bi-'+old).style.outline='none';
+  renderSlot(i);
+  document.getElementById('stepsCheckBtn').disabled=true;
+}
+function renderSlot(i){
+  const slot=document.getElementById('ss-'+i);
+  const id=slotContents[i];
+  if(!id){
+    slot.className='seq-slot';
+    slot.innerHTML=`<div class="slot-num">${i+1}</div><div class="slot-body" style="color:var(--gray-dk)">click a step above, then click here</div>`;
+    return;
+  }
+  const s=STEP_BANK.find(x=>x.id===id);
+  slot.className='seq-slot filled';
+  slot.innerHTML=`<div class="slot-num">${i+1}</div><div class="slot-body">${s.icon} ${s.text}</div><span class="slot-clear" onclick="clearSlotBtn(${i},event)">✕</span>`;
+}
+function clearSlotBtn(i,e){ e.stopPropagation(); clearSlot(i); }
+function checkSteps(){
+  stepsChecked=true;
+  let correct=0;
+  slotContents.forEach((id,i)=>{
+    const s=STEP_BANK.find(x=>x.id===id);
+    const slot=document.getElementById('ss-'+i);
+    const ok=s && s.correct && s.order===(i+1);
+    if(ok){ correct++; slot.classList.add('correct'); }
+    else   { slot.classList.add('wrong'); }
+    const clr=slot.querySelector('.slot-clear'); if(clr)clr.style.display='none';
+  });
+  sectionScores.steps={earned:correct,possible:7};
+  const pct=Math.round(correct/7*100);
+  document.getElementById('stepsResult').innerHTML=`<div class="callout ${pct>=70?'callout-success':'callout-warn'}" style="margin-top:4px"><strong>${correct}/7 correct (${pct}%)</strong> — ${pct>=70?'Pipeline order correct. Key rule: dedup first (exit early saves API cost), enrichment before scoring (you can\'t score what you haven\'t looked up), draft last (most expensive step — only runs if lead passes).':'Review the highlighted slots. Core ordering rule: dedup → verify → enrich → score → route → draft → log. Each step gates the next. The decoys (send, auto-book, retrain) violate the human-in-the-loop boundary.'}</div>`;
+  document.getElementById('stepsCheckBtn').style.display='none';
+  document.getElementById('stepsNextBtn').style.display='inline-flex';
+}
+
+// ─── TOOLS ───────────────────────────────────────────────────────────────────
+let toolsBuilt=false, toolSelections={}, toolsChecked=false;
+
+const TOOL_OPTS=[
+  {id:'sf',       label:'Salesforce CRM API',        icon:'☁️'},
+  {id:'clearbit', label:'Clearbit Enrichment API',   icon:'🔍'},
+  {id:'hunter',   label:'Hunter.io (Email Verify)',  icon:'✉️'},
+  {id:'llm',      label:'Internal LLM (draft gen)',  icon:'🤖'},
+  {id:'routing',  label:'Territory Routing Rules DB',icon:'🗺️'},
+  // Decoys
+  {id:'twitter',  label:'Twitter/X Social API',      icon:'🐦'},
+  {id:'calendar', label:'Google Calendar (auto-book)',icon:'📅'},
+];
+const STEP_TOOL=[
+  {label:'Step 1 — Deduplication',     correct:'sf',       hint:'Queries existing contacts, accounts, and deals'},
+  {label:'Step 2 — Email Verification',correct:'hunter',   hint:'Third-party email validity API'},
+  {label:'Step 3 — Company Enrichment',correct:'clearbit', hint:'Firmographic data — size, funding, industry'},
+  {label:'Step 4 — ICP Scoring',       correct:'clearbit', hint:'Uses the enriched data from Step 3'},
+  {label:'Step 5 — Routing Decision',  correct:'routing',  hint:'Deterministic rules — territory + vertical lookup table'},
+  {label:'Step 6 — Outreach Draft',    correct:'llm',      hint:'Generates personalized text from structured inputs'},
+  {label:'Step 7 — CRM Logging',       correct:'sf',       hint:'Writes score, routing, and draft back to source of truth'},
+];
+
+function buildTools(){
+  toolsBuilt=true;
+  const el=document.getElementById('toolRows');
+  STEP_TOOL.forEach((s,i)=>{
+    const row=document.createElement('div'); row.className='tool-row';
+    row.innerHTML=`
+      <div class="tool-step-label"><strong style="color:#fff">${s.label}</strong><br/><span style="font-size:.78rem;color:var(--gray-dk);font-style:italic">${s.hint}</span></div>
+      <select class="tool-select" id="tsel-${i}" onchange="toolSelections[${i}]=this.value">
+        <option value="">— Select a tool —</option>
+        ${TOOL_OPTS.map(t=>`<option value="${t.id}">${t.icon} ${t.label}</option>`).join('')}
+      </select>
+      <div class="tool-fb" id="tfb-${i}"></div>`;
+    el.appendChild(row);
+  });
+}
+function checkTools(){
+  toolsChecked=true;
+  let correct=0;
+  STEP_TOOL.forEach((s,i)=>{
+    const sel=toolSelections[i];
+    const ok=sel===s.correct;
+    if(ok)correct++;
+    const fb=document.getElementById('tfb-'+i);
+    const tool=TOOL_OPTS.find(t=>t.id===s.correct);
+    fb.style.cssText=`display:block;background:${ok?'rgba(34,197,94,.1)':'rgba(232,51,58,.1)'};border:1px solid ${ok?'rgba(34,197,94,.3)':'rgba(232,51,58,.3)'};color:${ok?'var(--green)':'var(--GA-red)'};padding:5px 10px;border-radius:var(--r);font-size:.8rem`;
+    fb.textContent=ok?'✓ Correct':`✗ Should be: ${tool?.label}`;
+    document.getElementById('tsel-'+i).disabled=true;
+  });
+  sectionScores.tools={earned:correct,possible:7};
+  const pct=Math.round(correct/7*100);
+  document.getElementById('toolsResult').innerHTML=`<div class="callout ${pct>=70?'callout-success':'callout-warn'}" style="margin-top:4px"><strong>${correct}/7 correct (${pct}%)</strong> — ${pct>=70?'Clean tool map. Note: Salesforce appears in step 1 (read — dedup) and step 7 (write — log). Clearbit appears in steps 3 and 4 — step 4 uses cached data from step 3, so only one API call is needed.':'Key insight: deterministic steps (dedup, scoring, routing) use rule-based APIs. The LLM belongs only in step 6 — where generating unique, contextual prose is the actual task. Using an LLM for scoring would introduce non-determinism: the same lead could score differently on different runs.'}</div>`;
+  document.getElementById('toolsCheckBtn').style.display='none';
+  document.getElementById('toolsNextBtn').style.display='inline-flex';
+}
+
+// ─── SIMULATION ───────────────────────────────────────────────────────────────
+let simBuilt=false, simDone=false;
+
+const LEADS=[
+  {id:'l1',name:'Jordan Ellis',title:'VP of Sales',company:'NovaSpark SaaS',initials:'JE',color:'#3b82f6',
+   verdict:'qualified',statusTxt:'✓ Qualified',
+   trace:[
+     {s:'① Dedup',  r:'No match for j.ellis@novaspark.io or novaspark.io domain — proceed.',    ok:true},
+     {s:'② Verify', r:'j.ellis@novaspark.io — VALID. MX records confirmed, mailbox exists.',      ok:true},
+     {s:'③ Enrich', r:'NovaSpark SaaS: 220 employees, Series B ($14M raised), SaaS, Austin TX.',  ok:true},
+     {s:'④ Score',  r:'Title:VP ✓ | Size:220 ✓ | Industry:SaaS ✓ | Funding:B ✓ | Intent:+2 SDR job postings ✓ → Score 92/100.',ok:true},
+     {s:'⑤ Route',  r:'Territory: Southwest · Vertical: SaaS → Assigned to Maria Chen.',          ok:true},
+     {s:'⑥ Draft',  r:'Email drafted — references NovaSpark\'s SDR hiring as a pain point for outbound efficiency.',ok:true},
+     {s:'⑦ Log',    r:'Salesforce Lead #44821 created — Score:92, Owner:Maria Chen, Draft:attached.',ok:true},
+   ]},
+  {id:'l2',name:'Casey Morgan',title:'Marketing Coordinator',company:'Brannigan & Co',initials:'CM',color:'#a855f7',
+   verdict:'disqualified',statusTxt:'✗ Disqualified',
+   trace:[
+     {s:'① Dedup',  r:'No match for casey@brannigan.com — proceed.',ok:true},
+     {s:'② Verify', r:'casey@brannigan.com — VALID.',ok:true},
+     {s:'③ Enrich', r:'Brannigan & Co: 18 employees, Bootstrapped, Legal vertical, Boston MA.',ok:true},
+     {s:'④ Score',  r:'Title:Coordinator ✗ | Size:18 ✗ | Industry:Legal ✗ | Funding:Bootstrapped ✗ → Score 8/100 — below 40pt disqualification threshold.',ok:false},
+     {s:'⑤ Route',  r:'Score < 40 → DISQUALIFIED. No routing. Pipeline exits.',ok:false},
+     {s:'⑥ Draft',  r:'Skipped — disqualified leads receive no outreach draft.',ok:null},
+     {s:'⑦ Log',    r:'Salesforce Lead #44822 — Score:8, Status:DISQUALIFIED, reason:title/size/industry/funding mismatch.',ok:true},
+   ]},
+  {id:'l3',name:'Alex Reyes',title:'Director of RevOps',company:'Thornfield Health',initials:'AR',color:'#22c55e',
+   verdict:'disqualified',statusTxt:'↪ Duplicate Routed',
+   trace:[
+     {s:'① Dedup',  r:'MATCH — thornfieldhealth.com is Account #8812 (owner: David Park, active renewal deal). Routing to existing owner. Pipeline exits.',ok:false},
+     {s:'② Verify', r:'Skipped — duplicate detected at step 1.',ok:null},
+     {s:'③ Enrich', r:'Skipped.',ok:null},
+     {s:'④ Score',  r:'Skipped.',ok:null},
+     {s:'⑤ Route',  r:'Routed to David Park (existing account owner) with note: new inbound contact from existing account.',ok:true},
+     {s:'⑥ Draft',  r:'Skipped.',ok:null},
+     {s:'⑦ Log',    r:'Salesforce: Lead #44823 linked to Account #8812. Activity logged for David Park.',ok:true},
+   ]},
+  {id:'l4',name:'Sam Torres',title:'Head of Growth',company:'FinEdge Payments',initials:'ST',color:'#f97316',
+   verdict:'qualified',statusTxt:'✓ Qualified',
+   trace:[
+     {s:'① Dedup',  r:'No match for sam.torres@finedge.io or finedge.io domain — proceed.',ok:true},
+     {s:'② Verify', r:'sam.torres@finedge.io — VALID.',ok:true},
+     {s:'③ Enrich', r:'FinEdge Payments: 85 employees, Series B ($9M), FinTech, NYC.',ok:true},
+     {s:'④ Score',  r:'Title:Head of Growth ✓ | Size:85 ✓ | Industry:FinTech ✓ | Funding:B ✓ | Intent:visited pricing page 3× in 7 days ✓ → Score 88/100.',ok:true},
+     {s:'⑤ Route',  r:'Territory: Northeast · Vertical: FinTech → Assigned to James Wu.',ok:true},
+     {s:'⑥ Draft',  r:'Email drafted — references FinEdge\'s recent Series B and growth team expansion.',ok:true},
+     {s:'⑦ Log',    r:'Salesforce Lead #44824 — Score:88, Owner:James Wu, Draft:attached, pricing intent flagged.',ok:true},
+   ]},
+  {id:'l5',name:'Riley Nguyen',title:'CTO',company:'DataVault Labs',initials:'RN',color:'#14b8a6',
+   verdict:'review',statusTxt:'⚑ Review',
+   trace:[
+     {s:'① Dedup',  r:'No match for riley@datavault.io — proceed.',ok:true},
+     {s:'② Verify', r:'riley@datavault.io — UNVERIFIABLE. MX records exist but mailbox status unknown. Risk: medium.',ok:null},
+     {s:'③ Enrich', r:'DataVault Labs: 130 employees, Series C ($38M), SaaS, San Francisco CA.',ok:true},
+     {s:'④ Score',  r:'Title:CTO ✓ | Size:130 ✓ | Industry:SaaS ✓ | Funding:C ✓ | Intent:neutral → Score 79/100. Email deliverability unverified — flag for review.',ok:null},
+     {s:'⑤ Route',  r:'Score 79 — QUALIFIED but email risk flag. Routing to Maria Chen with FLAG: verify email before sending.',ok:null},
+     {s:'⑥ Draft',  r:'Draft prepared — held pending rep email verification.',ok:true},
+     {s:'⑦ Log',    r:'Salesforce Lead #44825 — Score:79, Status:REVIEW (email unverified), Owner:Maria Chen, Draft:held.',ok:true},
+   ]},
+];
+
+function buildSim(){
+  simBuilt=true;
+  const el=document.getElementById('leadCards');
+  LEADS.forEach(lead=>{
+    const card=document.createElement('div'); card.className='lead-card'; card.id='lc-'+lead.id;
+    card.innerHTML=`
+      <div class="lead-header" onclick="toggleTrace('${lead.id}')">
+        <div class="lead-avatar" style="background:${lead.color}22;color:${lead.color};border:1.5px solid ${lead.color}55">${lead.initials}</div>
+        <div><div class="lead-name">${lead.name}</div><div class="lead-meta">${lead.title} · ${lead.company}</div></div>
+        <div class="lead-status" id="ls-${lead.id}" style="background:var(--black3);color:var(--gray)">Pending</div>
+      </div>
+      <div class="lead-trace" id="lt-${lead.id}"></div>`;
+    el.appendChild(card);
+  });
+}
+function toggleTrace(id){
+  document.getElementById('lt-'+id).classList.toggle('show');
+}
+async function runAll(){
+  document.getElementById('runAllBtn').disabled=true;
+  for(const lead of LEADS){
+    await processLead(lead);
+    await delay(300);
+  }
+  showSimSummary();
+  document.getElementById('simNextBtn').style.display='inline-flex';
+  markDone('simulate');
+  sectionScores.simulate={earned:5,possible:5};
+}
+async function processLead(lead){
+  const card=document.getElementById('lc-'+lead.id);
+  const statusEl=document.getElementById('ls-'+lead.id);
+  const traceEl=document.getElementById('lt-'+lead.id);
+  card.classList.add('running'); traceEl.innerHTML=''; traceEl.classList.add('show');
+  statusEl.style.cssText='background:rgba(245,197,24,.15);color:var(--yellow)'; statusEl.textContent='Running…';
+  for(const step of lead.trace){
+    await delay(300);
+    const row=document.createElement('div'); row.className='trace-row';
+    const col=step.ok===true?'var(--green)':step.ok===false?'var(--GA-red)':'var(--gray)';
+    const icon=step.ok===true?'✓':step.ok===false?'✗':'—';
+    row.innerHTML=`<span class="trace-badge">${step.s}</span><span class="trace-icon" style="color:${col}">${icon}</span><span>${step.r}</span>`;
+    traceEl.appendChild(row);
+  }
+  await delay(200);
+  card.classList.remove('running');
+  const vMap={
+    qualified:   {cls:'qualified',   bg:'rgba(34,197,94,.15)',  col:'var(--green)',  txt:'✓ Qualified'},
+    disqualified:{cls:'disqualified',bg:'rgba(100,100,100,.18)',col:'var(--gray)',   txt:'✗ Disqualified'},
+    review:      {cls:'review',      bg:'rgba(249,115,22,.15)', col:'var(--orange)', txt:'⚑ Review'},
+  };
+  const v=vMap[lead.verdict];
+  card.classList.add(v.cls);
+  statusEl.style.cssText=`background:${v.bg};color:${v.col}`;
+  statusEl.textContent=lead.verdict==='disqualified'&&lead.id==='l3'?'↪ Duplicate Routed':v.txt;
+}
+function resetSim(){
+  document.getElementById('runAllBtn').disabled=false;
+  LEADS.forEach(lead=>{
+    const card=document.getElementById('lc-'+lead.id);
+    card.className='lead-card';
+    const s=document.getElementById('ls-'+lead.id);
+    s.style.cssText='background:var(--black3);color:var(--gray)'; s.textContent='Pending';
+    const t=document.getElementById('lt-'+lead.id); t.innerHTML=''; t.classList.remove('show');
+  });
+  document.getElementById('simSummary').style.display='none';
+  document.getElementById('simNextBtn').style.display='none';
+}
+function showSimSummary(){
+  document.getElementById('simSummary').style.display='block';
+  const stats=[
+    {label:'Qualified',    val:2, col:'var(--green)'},
+    {label:'Disqualified', val:2, col:'var(--gray)'},
+    {label:'Flagged',      val:1, col:'var(--orange)'},
+    {label:'Duplicate blocked', val:1, col:'var(--yellow)'},
+    {label:'Avg time/lead',val:'<8 min', col:'var(--blue)'},
+    {label:'SDR time saved',val:'~95 min',col:'var(--teal)'},
+  ];
+  document.getElementById('simSummaryGrid').innerHTML=stats.map(s=>`
+    <div style="background:var(--black3);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;text-align:center">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:${s.col}">${s.val}</div>
+      <div style="font-size:.72rem;color:var(--gray-dk);margin-top:3px;text-transform:uppercase;letter-spacing:.06em;font-weight:700">${s.label}</div>
+    </div>`).join('');
+}
+
+// ─── METRIC ──────────────────────────────────────────────────────────────────
+let metricBuilt=false, metricAnswered=false;
+
+const METRICS=[
+  {id:'m1',title:'Lead Response Time (P90)',
+   formula:'Time from lead created → rep notification sent (90th percentile)',
+   why:'Measures whether leads are being contacted while warm — the primary business problem this automation was built to solve.',
+   correct:true},
+  {id:'m2',title:'Leads Qualified Per Day',
+   formula:'COUNT(leads where status = QUALIFIED) / day',
+   why:'A volume metric. Proves the agent is processing leads — not that those leads are generating pipeline or responding.',
+   correct:false},
+  {id:'m3',title:'ICP Match Accuracy (30-day lag)',
+   formula:'Closed-won deals / Total qualified leads (30-day cohort)',
+   why:'Measures scoring precision — but requires a 30-day lag to validate. Important secondary metric, not the primary efficiency signal.',
+   correct:false},
+  {id:'m4',title:'SDR Admin Time Saved Per Day',
+   formula:'Manual hours pre-automation − Review hours post-automation',
+   why:'Measures internal efficiency, not revenue impact. An agent could save 90 min of admin while worsening pipeline quality and this metric would still look great.',
+   correct:false},
+];
+
+function buildMetric(){
+  metricBuilt=true;
+  const el=document.getElementById('metricCards');
+  METRICS.forEach(m=>{
+    const card=document.createElement('div'); card.className='metric-card'; card.id='mc-'+m.id;
+    card.innerHTML=`<div class="metric-title">${m.title}</div><div class="metric-formula">${m.formula}</div><div class="metric-why">${m.why}</div>`;
+    card.addEventListener('click',()=>selectMetric(m.id));
+    el.appendChild(card);
+  });
+}
+function selectMetric(id){
+  if(metricAnswered)return;
+  document.querySelectorAll('.metric-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('mc-'+id).classList.add('selected');
+  buildMetricQuiz(id);
+}
+function buildMetricQuiz(chosen){
+  const qEl=document.getElementById('metricQuiz'); qEl.style.display='block'; qEl.innerHTML='';
+  const opts=[
+    {k:'A',text:'Lead Response Time (P90) — it directly measures whether leads are reached while warm, which is the exact business problem this automation solves.',ans:true,
+     fb:'Correct. The 5× response-rate drop at 4 hours is the business case for this entire automation. The metric must measure the thing that drives that outcome: how fast do qualified leads get in front of a rep? P90 (90th percentile) captures performance without being skewed by outliers.'},
+    {k:'B',text:'Leads Qualified Per Day — it shows the agent is processing a high volume, which proves ROI.',ans:false,
+     fb:'Volume proves the agent is alive — not that it\'s generating value. An agent that qualifies 200 leads per day while processing them 6 hours after submission has failed at its core purpose. Volume looks healthy while the response-time problem remains completely unsolved.'},
+    {k:'C',text:'ICP Match Accuracy — it ensures the agent\'s qualification decisions are actually correct.',ans:false,
+     fb:'ICP accuracy is a quality metric, not an efficiency metric. It\'s important — but it requires a 30-day lag to validate (deals take time to close or die). You need a primary metric you can read in near real-time. Accuracy should be a secondary metric reviewed monthly.'},
+    {k:'D',text:'SDR Time Saved Per Day — it directly quantifies the efficiency gain the automation delivers.',ans:false,
+     fb:'Efficiency in inputs (SDR admin hours) doesn\'t prove efficiency in outputs (revenue). An automation that saves 90 minutes of SDR time while processing leads 8 hours after submission saves time and kills pipeline. The outcome metric — response time — is the one that ties to business results.'},
+  ];
+  qEl.insertAdjacentHTML('beforeend','<div style="font-size:.82rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-dk);margin-bottom:10px">Which metric best captures the ROI of this automation?</div>');
+  opts.forEach((opt,i)=>{
+    const btn=document.createElement('button'); btn.className='mcq-opt';
+    btn.innerHTML=`<div class="opt-k">${opt.k}</div><div>${opt.text}</div>`;
+    btn.addEventListener('click',()=>{
+      if(metricAnswered)return; metricAnswered=true;
+      qEl.querySelectorAll('.mcq-opt').forEach((b,j)=>{
+        b.classList.add('disabled');
+        if(opts[j].ans) b.classList.add('correct');
+        else if(j===i&&!opt.ans) b.classList.add('wrong');
+      });
+      const fb=document.createElement('div');
+      fb.className='mcq-fb show '+(opt.ans?'ok':'bad');
+      fb.innerHTML=`<strong>${opt.ans?'✓ Correct:':'Not quite:'}</strong> ${opt.fb}`;
+      qEl.appendChild(fb);
+      sectionScores.metric={earned:opt.ans?1:0,possible:1};
+      METRICS.forEach(m=>{
+        const card=document.getElementById('mc-'+m.id); card.classList.add('locked');
+        if(m.correct) card.classList.add('correct-metric');
+        else if(m.id===METRICS.find((_,j)=>j===opts.indexOf(opt)&&!opt.ans)?.id) card.classList.add('wrong-metric');
+      });
+      document.getElementById('metricNext').style.display='block';
+    });
+    qEl.appendChild(btn);
+  });
+}
+
+// ─── FULL LOOP ────────────────────────────────────────────────────────────────
+let loopBuilt=false, loopRunning=false;
+
+const LOOP_LEAD={name:'Quinn Park',title:'Director of Demand Generation',company:'Helix Analytics',initials:'QP',color:'#a855f7',email:'q.park@helixanalytics.com'};
+
+const LOOP_PHASES=[
+  {phase:'PERCEIVE',color:'#3b82f6',icon:'👁',title:'Read the Environment',
+   items:[
+     'New lead event received via HubSpot form webhook — timestamp 09:14:22 UTC',
+     'Payload extracted: name=Quinn Park · title=Director of Demand Generation · company=Helix Analytics',
+     'Email captured: q.park@helixanalytics.com · Source: website /solutions/pipeline-automation page',
+     'Lead age at processing start: 5 minutes 44 seconds — well inside the 4-hour warm window',
+   ]},
+  {phase:'REASON',color:'#f5c518',icon:'🧠',title:'Decide What to Do',
+   items:[
+     'Step 1 — Dedup: no match for q.park@helixanalytics.com or helixanalytics.com → proceed',
+     'Step 2 — Email verify: VALID, MX confirmed',
+     'Step 3 — Enrich: 190 employees, Series B ($22M), SaaS vertical, San Francisco',
+     'Step 4 — ICP score: Title:Director ✓ | Size:190 ✓ | Industry:SaaS ✓ | Funding:B ✓ | Intent:pipeline page visit ✓ → Score 86/100',
+     'Scoring threshold: 86 ≥ 70 → QUALIFIED',
+     'Routing lookup: West Coast + SaaS → assign to rep Alex Kim',
+     'Decision: proceed to Act phase — full outreach pipeline',
+   ]},
+  {phase:'ACT',color:'#22c55e',icon:'⚡',title:'Take Action',
+   items:[
+     'Outreach email generated — references Helix\'s pipeline automation page visit and Series B growth context',
+     'Subject line: "Scaling demand gen at Helix — a thought on the timing"',
+     'Salesforce Lead #44830 created: Score 86, Owner Alex Kim, Stage: New',
+     'Draft email attached to Salesforce record as activity',
+     'Slack notification dispatched to Alex Kim: "New qualified lead: Quinn Park, Helix Analytics, Score 86 — pipeline page visit 6 min ago. Draft ready in Salesforce."',
+     'End-to-end time: 7 min 14 sec from form submission to rep notification',
+   ]},
+  {phase:'OBSERVE',color:'#a855f7',icon:'🔍',title:'Evaluate the Outcome',
+   items:[
+     'Salesforce write confirmed — Lead #44830 record exists: 200 OK',
+     'Slack delivery confirmed — message delivered to Alex Kim\'s workspace',
+     'Evaluating: did the action succeed? → Yes. Did the human engage? → Not yet (observing)',
+     'Loop decision: EXIT this cycle. Human-in-the-loop boundary respected — awaiting rep review and send decision',
+     'Watchdog timer set: if Alex Kim does not open the Salesforce record within 2 hours → re-enter PERCEIVE to assess freshness and escalate to SDR team lead',
+     'This conditional re-loop is what makes this an agent — not a one-shot script',
+   ]},
+];
+
+function buildLoop(){
+  loopBuilt=true;
+  const leadEl=document.getElementById('loopLeadCard');
+  leadEl.innerHTML=`
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:10px">Incoming Lead — Webhook Received 09:14:22 UTC</div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div style="width:42px;height:42px;border-radius:50%;background:${LOOP_LEAD.color}22;border:2px solid ${LOOP_LEAD.color}55;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:800;color:${LOOP_LEAD.color};flex-shrink:0">${LOOP_LEAD.initials}</div>
+      <div>
+        <div style="font-weight:700;font-size:.95rem;color:#fff">${LOOP_LEAD.name} · ${LOOP_LEAD.title}</div>
+        <div style="font-size:.84rem;color:var(--gray)">${LOOP_LEAD.company} · ${LOOP_LEAD.email}</div>
+      </div>
+    </div>`;
+
+  const phasesEl=document.getElementById('loopPhases');
+  LOOP_PHASES.forEach((p,i)=>{
+    const div=document.createElement('div'); div.className='loop-phase'; div.id='lph-'+i;
+    div.innerHTML=`
+      <div class="loop-dot" id="ldot-${i}">${p.icon}</div>
+      <div style="margin-left:10px">
+        <div class="loop-phase-label" style="color:${p.color}">${p.phase}</div>
+        <div class="loop-phase-title">${p.title}</div>
+        <div class="loop-items" id="litems-${i}"></div>
+      </div>`;
+    phasesEl.appendChild(div);
+  });
+}
+
+async function runLoop(){
+  if(loopRunning)return; loopRunning=true;
+  document.getElementById('loopRunBtn').disabled=true;
+  for(let i=0;i<LOOP_PHASES.length;i++){
+    const p=LOOP_PHASES[i];
+    const div=document.getElementById('lph-'+i);
+    const dot=document.getElementById('ldot-'+i);
+    const itemsEl=document.getElementById('litems-'+i);
+    div.classList.add('active');
+    div.style.borderLeftColor=p.color;
+    dot.style.cssText=`position:absolute;left:-12px;top:0;width:24px;height:24px;border-radius:50%;background:${p.color};border:2px solid ${p.color};display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .4s`;
+    dot.innerHTML=`<span class="spin">⟳</span>`;
+    // Light pipeline
+    for(let ci=0;ci<=7;ci++){
+      const c=document.getElementById('pc'+ci);
+      if(c) c.className='pipe-circle '+(i===LOOP_PHASES.length-1?'done':'lit');
+    }
+    for(const item of p.items){
+      await delay(360);
+      const row=document.createElement('div'); row.className='loop-item';
+      row.innerHTML=`<span class="loop-arrow">▸</span><span>${item}</span>`;
+      itemsEl.appendChild(row);
+      itemsEl.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+    await delay(300);
+    dot.innerHTML=p.icon;
+    if(i<LOOP_PHASES.length-1) div.style.borderLeftColor=p.color;
+  }
+  // All done
+  for(let ci=0;ci<=7;ci++){ const c=document.getElementById('pc'+ci); if(c) c.className='pipe-circle done'; }
+  document.getElementById('loopConclusion').style.display='block';
+  document.getElementById('loopConclusion').innerHTML=`<div class="callout callout-success"><strong>✓ Full agent loop complete — 7 min 14 sec from form submission to rep notification.</strong><br/><br/>The agent cycled through all four phases: Perceive (read the new lead), Reason (run the 7-step qualification pipeline internally), Act (write to Salesforce, notify the rep), Observe (confirm actions succeeded, set a watchdog timer). The watchdog means this isn't a one-shot script — if Alex Kim doesn't engage within 2 hours, the loop re-enters PERCEIVE and escalates. That adaptive re-loop is the defining characteristic of an agent.</div>`;
+  document.getElementById('loopResetBtn').style.display='inline-flex';
+  document.getElementById('loopNextBtn').style.display='inline-flex';
+  markDone('loop'); sectionScores.loop={earned:1,possible:1};
+}
+function resetLoop(){
+  loopRunning=false;
+  document.getElementById('loopRunBtn').disabled=false;
+  document.getElementById('loopResetBtn').style.display='none';
+  document.getElementById('loopConclusion').style.display='none';
+  LOOP_PHASES.forEach((_,i)=>{
+    const div=document.getElementById('lph-'+i); div.classList.remove('active'); div.style.borderLeftColor='var(--line)';
+    const dot=document.getElementById('ldot-'+i); dot.style.cssText='position:absolute;left:-12px;top:0;width:24px;height:24px;border-radius:50%;background:var(--black);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:all .4s';
+    dot.innerHTML=LOOP_PHASES[i].icon;
+    document.getElementById('litems-'+i).innerHTML='';
+  });
+  for(let ci=0;ci<=7;ci++){ const c=document.getElementById('pc'+ci); if(c) c.className='pipe-circle'; }
+}
+
+// ─── QUIZ ─────────────────────────────────────────────────────────────────────
+const QUESTIONS=[
+  {q:'Why is an event-driven webhook trigger the correct choice for this lead qualification workflow?',
+   opts:[
+     'Webhooks are easier to configure than scheduled cron jobs',
+     'Leads older than 4 hours respond at 5× lower rates — a webhook fires instantly when a lead arrives, keeping every lead inside the warm response window. Any batch or polling architecture structurally reintroduces the lag you\'re eliminating.',
+     'Batch triggers process too many leads at once, causing errors',
+     'Event triggers cost less to run than scheduled jobs',
+   ],ans:1,
+   ok:'Correct. The trigger architecture must match the urgency of the process. This workflow exists because response time drives response rates — so the trigger must guarantee freshness. Any lag at the trigger level poisons the entire downstream pipeline.',
+   bad:'Not quite. The key is response time. The business case for this automation is the 5× response-rate drop that happens when leads go cold. Only an event-driven trigger guarantees that the agent starts processing immediately when a lead arrives.'},
+
+  {q:'The deduplication check runs FIRST — before email verification and company enrichment. Why?',
+   opts:[
+     'Salesforce API is faster than Clearbit, so it should go first for performance',
+     'If a lead is a duplicate, all subsequent steps (email verify, enrichment, scoring, draft) are wasted work. Exiting early on a duplicate saves API credits and prevents reps from contacting existing customers or prospects who were already reached out to this quarter.',
+     'Email verification requires the dedup result to function correctly',
+     'The ICP score depends on whether the lead already exists in the CRM',
+   ],ans:1,
+   ok:'Correct. Early-exit logic is a fundamental pipeline optimization. Dedup is the cheapest check (one CRM query). If it returns a match, you skip all the expensive downstream steps — Clearbit API call, ICP scoring computation, LLM draft generation. The order saves cost and prevents harmful duplicate outreach.',
+   bad:'Not quite. The key is early-exit efficiency. Dedup is cheap (one CRM query). If the lead is a duplicate, you exit immediately and skip all the expensive steps that follow. This saves API cost AND prevents the ~3 weekly duplicate outreach incidents.'},
+
+  {q:'Lead #3 (Alex Reyes, Thornfield Health) was a perfect ICP match but the pipeline exited at step 1. What happened — and is the outcome correct?',
+   opts:[
+     'The email was unverifiable — the pipeline should have continued with a review flag',
+     'The dedup check matched thornfieldhealth.com to an existing CRM account with an active deal owner (David Park). The agent correctly routed Alex to the existing owner instead of creating a competing lead. The outcome is correct — it prevents double outreach on an active account.',
+     'The lead was disqualified because they didn\'t meet the ICP size threshold',
+     'The company had already been scored as low-intent in a prior batch',
+   ],ans:1,
+   ok:'Correct. The agent didn\'t discard Alex Reyes — it re-routed the inbound contact to the existing account owner. This is better than disqualification: the existing rep gets a signal that their account is re-engaging. The dedup check protects the customer relationship and prevents rep territory conflicts.',
+   bad:'Not quite. Alex was perfect ICP — title, size, industry, funding all fit. But thornfieldhealth.com already existed as Account #8812 with an open renewal deal owned by David Park. Creating a new lead would cause two reps to contact the same company in parallel. The correct action is routing to the existing owner, not disqualifying.'},
+
+  {q:'Why is the LLM used only for step 6 (outreach draft) — and NOT for step 4 (ICP scoring) or step 5 (routing)?',
+   opts:[
+     'LLMs are too slow to be used in early pipeline steps',
+     'ICP scoring and routing are deterministic — the same inputs should always produce the same outputs. These should use rule-based logic for consistency and auditability. The LLM is reserved for step 6, where generating unique, contextual prose is the actual task and some variation in output is acceptable.',
+     'LLMs cannot read structured data like CRM fields',
+     'Using an LLM for scoring would be too expensive relative to a rules engine',
+   ],ans:1,
+   ok:'Correct. This is a core architectural principle: deterministic problems need deterministic solutions. If an LLM scored leads, the same lead could score 78 one day and 84 the next — causing routing inconsistency and making the system unauditable. The LLM belongs only where generating novel, contextual text is the task.',
+   bad:'Not quite. The principle is: deterministic problem → rule-based logic. Generative problem → LLM. Scoring and routing must produce the same output for the same input every time. An LLM introduces stochasticity into decisions that need to be auditable and consistent. The LLM\'s value is in step 6 — writing a personalized email from structured data.'},
+
+  {q:'Why is "Lead Response Time (P90)" a better primary efficiency metric than "Leads Qualified Per Day"?',
+   opts:[
+     'P90 is harder to game than a volume metric',
+     'Response time directly measures the business outcome the automation was built to deliver — contacting leads while they\'re warm. Volume only proves the agent is processing leads, not that those leads are being reached in time to matter.',
+     'Leads qualified per day is difficult to calculate accurately',
+     'P90 is the industry standard KPI for sales automation',
+   ],ans:1,
+   ok:'Correct. Measure outcomes, not activities. Leads processed per day is an activity metric — it proves the agent is alive. Response time is an outcome metric — it proves the agent is solving the problem. The 5× response-rate drop at 4 hours is the entire business case; only response time tells you whether you\'re inside that window.',
+   bad:'Not quite. The principle is: metrics should measure the outcome the business cares about, not just the activity that produces it. The business outcome here is reaching warm leads. Volume tells you how many leads were processed. Response time tells you whether those leads were still warm when the rep got to them.'},
+
+  {q:'In the full agent loop, what is the purpose of the OBSERVE phase — and what makes it different from a simple script?',
+   opts:[
+     'The OBSERVE phase logs all activity to a database for compliance purposes',
+     'OBSERVE is where the agent evaluates whether its actions actually succeeded and decides whether to loop again. A script runs once and stops regardless of outcome. An agent observes the result of its actions — and if the outcome isn\'t right (e.g., the rep hasn\'t engaged after 2 hours), it re-enters PERCEIVE to assess and escalate.',
+     'OBSERVE is where the agent waits for the rep to confirm before proceeding',
+     'OBSERVE cleans up temporary data created during the reasoning phase',
+   ],ans:1,
+   ok:'Correct. The adaptive re-loop in OBSERVE is what distinguishes an agent from a script. A script writes to Salesforce and terminates. An agent confirms the write succeeded, monitors whether the rep acted, and escalates if not. This feedback loop is the architectural difference — not just the ability to use tools, but the ability to evaluate whether the tool use actually produced the right outcome.',
+   bad:'Not quite. The OBSERVE phase is about adaptive behavior. After acting, the agent reads back the results and asks: did what I do work? Should I do something else? A script executes and exits. An agent loops — watching for signals that its actions didn\'t produce the expected outcome, and re-entering PERCEIVE to respond. That\'s the architectural difference.'},
+
+  {q:'What is the "human-in-the-loop" boundary in this workflow, and why does it exist at that specific point?',
+   opts:[
+     'The SDR lead manually triggers the pipeline each morning — this is the human-in-the-loop control',
+     'The agent qualifies, scores, routes, and drafts the outreach email — but a human rep reviews and sends the final email. The boundary exists at the send decision because that\'s the irreversible action that directly affects the customer relationship. Everything before it is research and preparation.',
+     'A human approves each ICP scoring decision before the pipeline continues',
+     'The human-in-the-loop boundary means the agent checks in with the rep at every step',
+   ],ans:1,
+   ok:'Correct. The boundary is precisely placed: agent handles all research and preparation (reversible, low-stakes), human handles the contact decision (irreversible, relationship-sensitive). Sending an email on behalf of a company to a prospect is a high-stakes action that benefits from human judgment about tone, timing, and context. Everything upstream of the send is data processing — automatable with no downside.',
+   bad:'Not quite. The human-in-the-loop boundary separates what the agent decides from what a human decides. In this workflow: the agent decides qualification, routing, and draft content. The human decides whether to send, and how to personalize. The boundary is placed at the irreversible action — sending an email — because that\'s where human judgment about the relationship context adds real value.'},
+];
+
+let qIdx=0, qScore=0, quizStarted=false, qAnswered=false;
+function initQuiz(){quizStarted=true; qIdx=0; qScore=0; showQ();}
+function showQ(){
+  qAnswered=false;
+  const q=QUESTIONS[qIdx];
+  document.getElementById('qProg').style.width=(qIdx/QUESTIONS.length*100)+'%';
+  document.getElementById('qMeta').textContent=`Question ${qIdx+1} of ${QUESTIONS.length}`;
+  document.getElementById('qScoreTxt').textContent=`Score: ${qScore} / ${qIdx}`;
+  document.getElementById('quizQ').textContent=q.q;
+  document.getElementById('quizFB').className='fb-box'; document.getElementById('quizFB').innerHTML='';
+  document.getElementById('qNextBtn').style.display='none';
+  const L=['A','B','C','D'];
+  document.getElementById('quizOpts').innerHTML=q.opts.map((o,i)=>
+    `<button class="q-opt" onclick="answerQ(${i})"><div class="q-opt-k">${L[i]}</div>${o}</button>`
+  ).join('');
+}
+function answerQ(i){
+  if(qAnswered)return; qAnswered=true;
+  const q=QUESTIONS[qIdx]; const ok=i===q.ans; if(ok)qScore++;
+  document.querySelectorAll('.q-opt').forEach((el,idx)=>{
+    el.classList.add('disabled');
+    if(idx===q.ans) el.classList.add('correct');
+    else if(idx===i&&!ok) el.classList.add('wrong');
+  });
+  const fb=document.getElementById('quizFB');
+  fb.innerHTML=`<span style="font-size:1.1rem;flex-shrink:0">${ok?'✓':'✗'}</span><span>${ok?q.ok:q.bad}</span>`;
+  fb.className='fb-box show '+(ok?'ok':'bad');
+  document.getElementById('qScoreTxt').textContent=`Score: ${qScore} / ${qIdx+1}`;
+  document.getElementById('qNextBtn').style.display='inline-flex';
+  if(qIdx===QUESTIONS.length-1) document.getElementById('qNextBtn').textContent='See Results →';
+}
+function nextQ(){ qIdx++; if(qIdx>=QUESTIONS.length){showQuizDone();return;} showQ(); }
+function showQuizDone(){
+  document.getElementById('quizActive').style.display='none';
+  document.getElementById('quizDone').style.display='block';
+  const pct=Math.round(qScore/QUESTIONS.length*100);
+  sectionScores.quiz={earned:qScore,possible:QUESTIONS.length};
+  document.getElementById('qBadge').innerHTML=`<span style="background:${pct>=70?'rgba(34,197,94,.15)':'rgba(232,51,58,.15)'};color:${pct>=70?'var(--green)':'var(--GA-red)'};padding:3px 10px;border-radius:20px;font-size:.85rem;font-weight:700">${qScore}/${QUESTIONS.length} · ${pct}%</span>`;
+  document.getElementById('qMsg').textContent=pct>=70
+    ?`${pct}% — solid. You can design a complete automation plan: trigger logic, pipeline sequencing, tool mapping, and agent loop architecture.`
+    :`${pct}% — review the Steps and Metric sections. Core principle: every design decision (trigger, step order, tool choice, metric) must map back to the business outcome the automation was built to deliver.`;
+  if(pct>=70) markDone('quiz');
+}
+
+// ─── MCQ HELPER ───────────────────────────────────────────────────────────────
+function renderMCQ(container, opts, onDone){
+  let answered=false;
+  opts.forEach((opt)=>{
+    const btn=document.createElement('button'); btn.className='mcq-opt';
+    btn.innerHTML=`<div class="opt-k">${opt.k}</div><div>${opt.text}</div>`;
+    btn.addEventListener('click',()=>{
+      if(answered)return; answered=true;
+      container.querySelectorAll('.mcq-opt').forEach((b,j)=>{
+        b.classList.add('disabled');
+        if(opts[j].ans) b.classList.add('correct');
+        else if(b===btn&&!opt.ans) b.classList.add('wrong');
+      });
+      const fb=document.createElement('div');
+      fb.className='mcq-fb show '+(opt.ans?'ok':'bad');
+      fb.innerHTML=`<strong>${opt.ans?'✓ Correct:':'Not quite:'}</strong> ${opt.fb}`;
+      container.appendChild(fb);
+      onDone(opt.ans);
+    });
+    container.appendChild(btn);
+  });
+}
+
+// ─── RESULTS ──────────────────────────────────────────────────────────────────
+function buildResults(){
+  const scoreMap=[
+    {label:'Trigger Design',     e:(sectionScores.trigger||0),  p:2},
+    {label:'Pipeline Steps',     e:(sectionScores.steps?.earned||0), p:7},
+    {label:'Tool Assignments',   e:(sectionScores.tools?.earned||0), p:7},
+    {label:'Lead Simulation',    e:(sectionScores.simulate?.earned||0), p:5},
+    {label:'Efficiency Metric',  e:(sectionScores.metric?.earned||0), p:1},
+    {label:'Full Agent Loop',    e:(sectionScores.loop?.earned||0), p:1},
+    {label:'Knowledge Check',    e:(sectionScores.quiz?.earned||0), p:7},
+  ];
+  const te=scoreMap.reduce((s,x)=>s+x.e,0);
+  const tp=scoreMap.reduce((s,x)=>s+x.p,0);
+  const pct=tp>0?Math.round(te/tp*100):0;
+  const grade=pct>=90?{l:'Automation Architect', e:'⚡',m:'End-to-end automation thinking — trigger design, pipeline order, tool selection, loop architecture.'}
+             :pct>=70?{l:'Process Engineer',      e:'↻', m:'Strong foundations. Review what you missed in pipeline sequencing and tool mapping.'}
+             :pct>=50?{l:'Workflow Apprentice',   e:'🔧',m:'Good instincts — revisit the Steps, Tools, and Metric sections.'}
+                     :{l:'Explorer',              e:'🔍',m:'Start from the Brief — the principles build sequentially.'};
+  const circ=2*Math.PI*52, dash=circ*(1-pct/100);
+  const rows=scoreMap.map(item=>{
+    const p=item.p>0?Math.round(item.e/item.p*100):0;
+    const col=p>=80?'var(--green)':p>=50?'var(--yellow)':'var(--GA-red)';
+    return `<div class="score-row">
+      <div style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0"></div>
+      <span style="flex:1;font-size:.9rem;font-weight:500;color:var(--gray-lt)">${item.label}</span>
+      <div class="score-bar-wrap"><div class="score-bar-fill" style="width:${p}%;background:${col}"></div></div>
+      <span style="font-size:.82rem;color:var(--gray);min-width:38px;text-align:right">${item.e}/${item.p}</span>
+      <span style="background:${p>=80?'rgba(34,197,94,.15)':p>=50?'rgba(245,197,24,.15)':'rgba(232,51,58,.15)'};color:${col};padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;min-width:40px;text-align:center">${p}%</span>
+    </div>`;
+  }).join('');
+  const takeaways=[
+    'The trigger architecture determines freshness — and freshness determines value. A workflow built around a response-time problem must use an event-driven trigger. Any batching or polling at the trigger level reintroduces the exact latency the automation was built to eliminate. Design triggers to match the urgency of the process.',
+    'Pipeline order is not a preference — it\'s optimization logic. Dedup first because an early exit on a duplicate skips all subsequent API calls. Enrichment before scoring because you can\'t score inputs that don\'t exist yet. LLM last because generating prose is the most expensive step — only run it if everything before it passed. Order is where efficiency is won or lost.',
+    'Measure the outcome, not the activity. Leads processed per day proves the agent is running. Lead response time proves the agent is solving the actual problem. Every automation needs a primary metric that traces directly back to the business outcome it was designed to deliver — not a metric that makes the engineering team look good while the revenue problem persists.',
+  ].map((t,i)=>`<div class="tk-item"><div class="tk-num">0${i+1}</div><div class="tk-txt">${t}</div></div>`).join('');
+
+  document.getElementById('resultsBody').innerHTML=`
+    <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding-bottom:36px;border-bottom:1px solid var(--line);margin-bottom:32px">
+      <div class="results-ring">
+        <svg width="120" height="120" style="transform:rotate(-90deg)" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="var(--black3)" stroke-width="8"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="var(--GA-red)" stroke-width="8"
+            stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${dash.toFixed(1)}"
+            stroke-linecap="round" style="transition:stroke-dashoffset 1.2s ease"/>
+        </svg>
+        <div class="results-ring-txt"><div class="ring-pct">${pct}%</div><div class="ring-sub">score</div></div>
+      </div>
+      <div>
+        <div style="font-size:2rem;margin-bottom:4px">${grade.e}</div>
+        <h2 style="font-size:clamp(2rem,5vw,2.8rem);margin-bottom:6px">${grade.l}</h2>
+        <p style="color:var(--gray-lt);font-size:.95rem">${grade.m}</p>
+        <p style="color:var(--gray-dk);font-size:.82rem;margin-top:6px;font-family:'JetBrains Mono',monospace">${te} pts earned · ${tp} pts possible</p>
+      </div>
+    </div>
+    <span class="eyebrow">Score Breakdown</span>
+    <div class="card" style="padding:8px 20px;margin-bottom:28px">${rows}</div>
+    <span class="eyebrow">Key Takeaways</span>
+    <div class="card" style="padding:8px 20px;margin-bottom:24px">${takeaways}</div>
+    <div style="background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:var(--r-lg);padding:20px">
+      <p style="font-size:.92rem;color:var(--gray-lt);line-height:1.7">
+        🎉 <strong style="color:#fff">Process Automation Plan complete.</strong><br/>
+        You designed the trigger, assembled the 7-step pipeline, mapped the tool stack, ran 5 live leads through the agent, selected the efficiency metric, and watched the full Perceive → Reason → Act → Observe loop execute in real time. That's a complete, defensible automation plan.<br/><br/>
+        Next module: <strong style="color:#fff">Agent Evaluation &amp; Testing</strong> — measuring and validating agent behavior in production.
+      </p>
+    </div>`;
+}
+</script>
+</body>
+</html>
