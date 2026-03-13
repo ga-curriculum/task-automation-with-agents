@@ -421,3 +421,7 @@ https://pages.git.generalassemb.ly/Build-AI-Agents/Task-Automation-With-Agents/
 - [Flowise — Agent Workflow Configuration](https://docs.flowiseai.com/)
 - McKinsey Global Institute — *The Economic Potential of Generative AI* (2023) — automation productivity section
 - NIST — *Principle of Least Privilege and Fail-Safe Defaults* (SP 800-53)
+
+---
+
+*General Assembly · Build AI Agents · BAA 16.0 · © 2026*
