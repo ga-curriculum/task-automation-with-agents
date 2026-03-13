@@ -424,4 +424,4 @@ https://pages.git.generalassemb.ly/Build-AI-Agents/Task-Automation-With-Agents/
 
 ---
 
-*General Assembly · Build AI Agents · BAA 16.0 · © 2026*
+*General Assembly · Build AI Agents · BAA 11.0 · © 2026*
