@@ -399,7 +399,7 @@ A workflow that passes this checklist is ready for supervised production deploym
 
 ## 5. Lab (60 min)
 
-https://pages.git.generalassemb.ly/Build-AI-Agents/Task-Automation-With-Agents/
+https://ga-curriculum.github.io/task-automation-with-agents/
 
 ---
 
